@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+void merge(int arr[],int s,int mid,int e){
+    int i,j,k;
+
+    int n1 = mid-s+1;
+    int n2 = e-mid;
+                                                                                                                                                
+    int first[n1],second[n2];
+
+    // int mainArrayIndex = s;
+    for(int i=0;i<n1;i++){
+        first[i] = arr[s+i];
+    }
+    
+    for(int i=0;i<n2;i++){
+        second[i] = arr[mid+i+1];
+    }
+
+    i=0;
+    j=0;
+    k=s;
+    while(i<n1 && j<n2){
+        if(first[i] < second[j]){
+            arr[k++] = first[i++];
+        }
+        else{
+            arr[k++] = second[j++];
+        }
+    }
+
+    while(i<n1){
+        arr[k++] = first[i++];
+    }
+
+    while(j<n2){
+        arr[k++] = second[j++];
+    }
+
+
+}
+
+
+void mergeSort(int arr[], int s,int e){
+    if(s<e){
+    int mid = s + (e - s) / 2;
+
+    mergeSort(arr,s,mid);
+    mergeSort(arr,mid+1,e);
+
+    merge(arr,s,mid,e);
+    }
+}
+
+void print(int arr[], int n){
+    for(int i=0;i<n;i++){
+        printf("%d ", arr[i]);
+    }printf("\n");
+}
+
+ 
+int main(){
+    int arr[5] = {2,3,4,1,5};
+    int n= sizeof(arr)/sizeof(arr[0]);
+    printf("Initially Array looks like : ");
+    print(arr, n);
+
+    int start = 0;
+    int end = n-1;
+    mergeSort(arr,start,end);
+
+    printf("Finally Array looks like : ");
+    print(arr, n);
+
+    
+    return 0;
+}

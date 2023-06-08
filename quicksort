@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void swap(int *a, int *b)
+{
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+int partition(int arr[], int s, int e)
+{
+    int i, j;
+    int p = arr[e];
+    i = (s - 1);
+    for (j = s; j <= e - 1; j++)
+    {
+        if (arr[j] < p)
+        {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[e]);
+    return (i + 1);
+}
+
+void QuickSort(int arr[], int s, int e)
+{
+    if (s < e)
+    {
+        int q = partition(arr, s, e);
+
+        QuickSort(arr, s, q - 1);
+        QuickSort(arr, q + 1, e);
+    }
+}
+
+void print(int arr[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main()
+{
+    int arr[5] = {2, 3, 4, 1, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printf("Initially Array looks like : ");
+    print(arr, n);
+
+    int start = 0;
+    int end = n - 1;
+    QuickSort(arr, start, end);
+
+    printf("Finally Array looks like : ");
+    print(arr, n);
+    return 0;
+}
